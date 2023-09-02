@@ -94,13 +94,13 @@
             </div>
             <div class="card-body box-profile">
                 <div class="text-center mb-4">
+                    @if(!empty(Auth::user()->photo_profile))
                     <a href="{{ asset('storage/image/avatar/'.Auth::user()->photo_profile) }}" target="_blank">
-                        @if(!empty(Auth::user()->photo_profile))
                         <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/image/avatar/resize/'.Auth::user()->photo_profile) }}" alt="User profile picture">
-                        @else
-                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/image/avatar/default.jpg') }}" alt="User profile picture">
-                        @endif
                     </a>
+                    @else
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('assets/image/default.jpg') }}" alt="User profile picture">
+                    @endif
                 </div>
 
                 @if(!empty(Auth::user()->photo_profile))
@@ -242,13 +242,6 @@
             <form action="{{ route('kepala-sekolah.profile.upload_photo') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
-                    <div class="form-group text-center">
-                        @if(Auth::user()->photo_profile != null)
-                        <img id="preview-photo-before-upload" src="{{ asset('storage/image/avatar/resize/'.Auth::user()->photo_profile) }}" class="profile-user-img img-fluid img-circle" alt="Photo Profile">
-                        @else
-                        <img id="preview-photo-before-upload" src="{{ asset('storage/image/avatar/default.jpg') }}" class="profile-user-img img-fluid img-circle" alt="Photo Profile">
-                        @endif
-                    </div>
                     <div class="form-group">
                         <label>File Photo <span class="text-danger">*</span><br>
                             <sup class="text-danger font-italic">jpg, jpeg, png (max 2048Kb)</sup>
@@ -281,13 +274,6 @@
             <form action="{{ route('kepala-sekolah.profile.edit_photo') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
-                    <div class="form-group text-center">
-                        @if(Auth::user()->photo_profile != null)
-                        <img id="preview-photo-before-edit" src="{{ asset('storage/image/avatar/resize/'.Auth::user()->photo_profile) }}" class="profile-user-img img-fluid img-circle" alt="Photo Profile">
-                        @else
-                        <img id="preview-photo-before-edit" src="{{ asset('storage/image/avatar/default.jpg') }}" class="profile-user-img img-fluid img-circle" alt="Photo Profile">
-                        @endif
-                    </div>
                     <div class="form-group">
                         <label>File Photo <span class="text-danger">*</span><br>
                             <sup class="text-danger font-italic">jpg, jpeg, png (max 2048Kb)</sup>
@@ -331,21 +317,6 @@ $(document).ready(function (e) {
     $('input[name="file_photo_edit"]').change(function(e){
         var fileName = e.target.files[0].name;
         $('.label-photo-profile').html(fileName);
-    });
-
-    $('input[name="file_photo"]').change(function(){
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#preview-photo-before-upload').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-    $('input[name="file_photo_edit"]').change(function(){
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#preview-photo-before-edit').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(this.files[0]);
     });
 });
 </script>

@@ -58,7 +58,7 @@
                         @if(!empty(Auth::user()->photo_profile))
                         <img src="{{ asset('storage/image/avatar/resize/'.Auth::user()->photo_profile) }}" class="user-image img-circle elevation-2" alt="Avatar">
                         @else
-                        <img src="{{ asset('storage/image/avatar/default.jpg') }}" class="user-image img-circle elevation-2" alt="Avatar">
+                        <img src="{{ asset('assets/image/default.jpg') }}" class="user-image img-circle elevation-2" alt="Avatar">
                         @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -67,7 +67,7 @@
                             @if(!empty(Auth::user()->photo_profile))
                             <img src="{{ asset('storage/image/avatar/resize/'.Auth::user()->photo_profile) }}" class="img-circle elevation-2" alt="Avatar">
                             @else
-                            <img src="{{ asset('storage/image/avatar/default.jpg') }}" class="img-circle elevation-2" alt="Avatar">
+                            <img src="{{ asset('assets/image/default.jpg') }}" class="img-circle elevation-2" alt="Avatar">
                             @endif
 
                             <p>
@@ -91,7 +91,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="javascript:void(0)" class="brand-link">
-                <img src="{{ asset('storage/image/logo/logo_login.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8">
+                <img src="{{ asset('assets/image/logo_login.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8">
                 <span class="brand-text font-weight-light ml-3">APP-SK GENTA<sup class="ml-2">V1</sup></span>
             </a>
 

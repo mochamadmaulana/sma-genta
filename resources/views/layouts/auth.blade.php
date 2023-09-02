@@ -28,7 +28,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <img src="{{ asset('storage/image/logo/logo_login.png') }}" alt="Logo SMA Genta" class="img-circle">
+            <img src="{{ asset('assets/image/logo_login.png') }}" alt="Logo SMA Genta" class="img-circle">
             <h4>SMA Genta Syaputra</h4>
         </div>
         <!-- /.login-logo -->
