@@ -32,7 +32,7 @@
 
                             <div class="form-group">
                                 <label>Photo Profile<br>
-                                    <sup class="text-danger font-italic">jpg, jpeg, png, gif (max 4096KB)</sup>
+                                    <sup class="text-danger font-italic">jpg, jpeg, png, gif (max 2048KB)</sup>
                                 </label>
                                 <div class="input-group">
                                     <div class="custom-file">

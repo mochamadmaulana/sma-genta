@@ -147,7 +147,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>File Lampiran <span class="text-danger">* </span><br>
-                            <small class="text-danger font-italic"> jpg, jpeg, png, pdf, docx, doc, xls, xlsx, csv, ppt, pptx (max 4096Kb)</small>
+                            <small class="text-danger font-italic"> jpg, jpeg, png, pdf, docx, doc, xls, xlsx, csv, ppt, pptx (max 1024Kb)</small>
                         </label>
                         <div class="custom-file">
                             <input type="file" name="file_lampiran" class="custom-file-input @error('file_lampiran') is-invalid @enderror" id="customFile">

@@ -151,7 +151,7 @@ class TransaksiSuratMasukController extends Controller
     public function store_lampiran(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            "file_lampiran" => ["required","file","mimes:png,jpeg,jpg,doc,docx,xls,xlsx,csv,ppt,pptx,pdf","max:4096"],
+            "file_lampiran" => ["required","file","mimes:png,jpeg,jpg,doc,docx,xls,xlsx,csv,ppt,pptx,pdf","max:1024"],
         ]);
         if ($validator->fails()) {
             return back()->with('error','File lampiran gagal diupload!')->withErrors($validator)->withInput();

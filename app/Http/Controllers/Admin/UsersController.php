@@ -54,7 +54,7 @@ class UsersController extends Controller
             "password" => ["required","min:6"],
             "jabatan" => ["required"],
             "role" => ["required"],
-            "photo_profile" => ["nullable","file","mimes:jpg,jpeg,png,gif","max:4096"],
+            "photo_profile" => ["nullable","file","mimes:jpg,jpeg,png,gif","max:2048"],
         ]);
         if ($validator->fails()) {
             return back()->with('error','Data gagal ditambahkan!')->withErrors($validator)->withInput();
@@ -104,7 +104,7 @@ class UsersController extends Controller
             "jabatan" => ["required"],
             "status" => ["required"],
             "role" => ["required"],
-            "photo_profile" => ["nullable","file","mimes:jpg,jpeg,png,gif","max:4096"],
+            "photo_profile" => ["nullable","file","mimes:jpg,jpeg,png,gif","max:2048"],
         ]);
         if ($validator->fails()) {
             return back()->with('error','Data gagal diupdate!')->withErrors($validator)->withInput();
@@ -145,6 +145,8 @@ class UsersController extends Controller
                 unlink(storage_path('app/public/image/avatar/'.$user->photo_profile));
                 unlink(storage_path('app/public/image/avatar/resize/'.$user->photo_profile));
             }
+            $user->status = 'nonaktif';
+            $user->update();
             $user->delete();
             return back()->with('success','Data berhasil dihapus');
         }else{
@@ -194,6 +196,8 @@ class UsersController extends Controller
     {
         $user = User::onlyTrashed()->findOrFail($id);
         if($user->count() > 0){
+            $user->status = 'aktif';
+            $user->update();
             $user->restore();
             return back()->with('success','Data berhasil dipulihkan');
         }else{
