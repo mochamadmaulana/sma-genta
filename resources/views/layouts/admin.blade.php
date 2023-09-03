@@ -2,9 +2,13 @@
 <html lang="en">
 
 <head>
+    <!-- Icon title bar -->
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo_login.png') }}" type="image/png">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? '' }} | {{ env('APP_NAME') ?? 'APP-SK' }}</title>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

@@ -17,7 +17,7 @@
                         <div class="col-lg-6">
 
                             <div class="form-group text-center">
-                                <img id="preview-photo-profile-before-upload" src="{{ asset('storage/image/avatar/default.jpg') }}" class="img-circle elevation-2 shadow" height="100px" width="100px" alt="Photo Profile">
+                                <img id="preview-photo-profile-before-upload" src="{{ asset('assets/image/default.jpg') }}" class="img-circle elevation-2 shadow" height="100px" width="100px" alt="Photo Profile">
                             </div>
 
                             <div class="form-group">

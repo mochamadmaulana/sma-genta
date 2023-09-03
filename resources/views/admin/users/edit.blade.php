@@ -20,7 +20,7 @@
                                 @if($user->photo_profile != null)
                                 <img id="preview-photo-profile-before-upload" src="{{ asset('storage/image/avatar/resize/'.$user->photo_profile) }}" class="img-circle elevation-2 shadow" height="100px" width="100px" alt="Photo Profile">
                                 @else
-                                <img id="preview-photo-profile-before-upload" src="{{ asset('storage/image/avatar/default.jpg') }}" class="img-circle elevation-2 shadow" height="100px" width="100px" alt="Photo Profile">
+                                <img id="preview-photo-profile-before-upload" src="{{ asset('assets/image/default.jpg') }}" class="img-circle elevation-2 shadow" height="100px" width="100px" alt="Photo Profile">
                                 @endif
                             </div>
 
