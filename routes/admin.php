@@ -32,7 +32,9 @@ Route::middleware('auth','role:Admin')->group(function () {
         // Users
         Route::resource('users',UsersController::class)->except('show');
         Route::post('users/{id}/edit-password',[UsersController::class,'edit_password'])->name('users.edit-password');
-        Route::get('users/{id}/destroy-photo',[UsersController::class,'destroy_photo'])->name('users.destroy-photo');
+        Route::get('users/trash',[UsersController::class,'trash'])->name('users.trash');
+        Route::delete('users/{id}/destroy-permanent',[UsersController::class,'destroy_permanent'])->name('users.destroy-permanent');
+        Route::get('users/{id}/restore',[UsersController::class,'restore'])->name('users.restore');
 
         // Profile
         Route::get('profile',[ProfileController::class,'index'])->name('profile.index');

@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['title' => 'Users', 'icon' => 'fas fa-users'])
+@extends('layouts.admin', ['title' => 'Sampah Users', 'icon' => 'fas fa-users'])
 
 @section('content')
 
@@ -14,13 +14,8 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-lg">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus"></i> Tambah Data</a>
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
                     </div>
-                    @if($sampah)
-                    <div class="col-lg">
-                        <a href="{{ route('admin.users.trash') }}" class="btn btn-sm btn-danger shadow-sm float-right"><i class="fas fa-trash"></i> Sampah</a>
-                    </div>
-                    @endif
                 </div>
                 <table id="tableUser" class="table table-bordered table-hover">
                     <thead class="bg-secondary">
@@ -53,7 +48,7 @@ $(function () {
         processing: true,
         serverSide: true,
         ajax: {
-            'url': '{!! route('admin.users.index') !!}',
+            'url': '{!! route('admin.users.trash') !!}',
             'contentType': 'application/json'
         },
         ordering: false,

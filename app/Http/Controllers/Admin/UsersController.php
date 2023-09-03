@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +33,10 @@ class UsersController extends Controller
             ->rawColumns(['action','status'])
             ->tojson();
         }
-        return view('admin.users.index');
+        $sampah = User::onlyTrashed()->get();
+        return view('admin.users.index',[
+            'sampah' => $sampah->count()
+        ]);
     }
 
     public function create()
@@ -135,27 +139,16 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        $user = User::whereId($id)->first();
-        if($user){
-            unlink(storage_path('app/public/image/avatar/'.$user->photo_profile));
-            unlink(storage_path('app/public/image/avatar/resize/'.$user->photo_profile));
-            $user->delete();
-            return redirect()->route('admin.users.index')->with('success','Data berhasil dihapus');
-        }else{
-            return redirect()->route('admin.users.index')->with('success','Data gagal dihapus!');
-        }
-    }
-
-    public function destroy_photo($id)
-    {
         $user = User::findOrFail($id);
-        if($user){
-            unlink(storage_path('app/public/image/avatar/'.$user->photo_profile));
-            unlink(storage_path('app/public/image/avatar/resize/'.$user->photo_profile));
-            $user->update(['photo_profile' => null]);
-            return back()->with('success','Photo profile berhasil dihapus');
+        if($user->count() > 0){
+            if ($user->photo_profile != null && File::exists(storage_path('app/public/image/avatar/'.$user->photo_profile))){
+                unlink(storage_path('app/public/image/avatar/'.$user->photo_profile));
+                unlink(storage_path('app/public/image/avatar/resize/'.$user->photo_profile));
+            }
+            $user->delete();
+            return back()->with('success','Data berhasil dihapus');
         }else{
-            return back()->with('error','Photo profile gagal dihapus!');
+            return back()->with('error','Data tidak ditemukan!');
         }
     }
 
@@ -174,6 +167,52 @@ class UsersController extends Controller
             return back()->with('success','Password berhasil diupdate');
         }else{
             return back()->with('error','Terjadi kesalahan, harap coba kembali!');
+        }
+    }
+
+    public function trash(Request $request)
+    {
+        if ($request->ajax()) {
+            $user = User::with('jabatan')->onlyTrashed()->latest()->get();
+            return DataTables::of($user)->addIndexColumn()
+            ->removeColumn('id')
+            ->editColumn('status',function($row){
+                if($row->status == 'aktif'){
+                    return '<span class="badge badge-success">Aktif</span>';
+                }else{
+                    return '<span class="badge badge-danger">Nonaktif</span>';
+                }
+            })
+            ->addColumn('action','admin.users.trash-action')
+            ->rawColumns(['action','status'])
+            ->tojson();
+        }
+        return view('admin.users.trash');
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        if($user->count() > 0){
+            $user->restore();
+            return back()->with('success','Data berhasil dipulihkan');
+        }else{
+            return back()->with('error','Data tidak ditemukan!');
+        }
+    }
+
+    public function destroy_permanent($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        if($user->count() > 0){
+            if ($user->photo_profile != null && File::exists(storage_path('app/public/image/avatar/'.$user->photo_profile))){
+                unlink(storage_path('app/public/image/avatar/'.$user->photo_profile));
+                unlink(storage_path('app/public/image/avatar/resize/'.$user->photo_profile));
+            }
+            $user->forceDelete();
+            return back()->with('success','Data berhasil dihapus permanent');
+        }else{
+            return back()->with('error','Data tidak ditemukan!');
         }
     }
 }
